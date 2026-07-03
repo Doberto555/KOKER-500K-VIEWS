@@ -79,10 +79,12 @@ a { color: inherit; }
   background: linear-gradient(145deg, var(--joker-red), var(--violet));
   display: grid;
   place-items: center;
+  color: white;
   font-size: 18px;
   box-shadow: 0 4px 18px rgba(255, 45, 111, 0.4);
   transform: rotate(-6deg);
 }
+.brand .joker-mark svg { width: 18px; height: 18px; }
 
 .brand .tag {
   color: var(--gold);
@@ -202,11 +204,13 @@ a { color: inherit; }
 }
 .joker-card .corner.bottom { align-self: flex-end; transform: rotate(180deg); }
 
-.joker-card .center-emoji {
-  font-size: 84px;
-  text-align: center;
+.joker-card .center-icon {
+  display: grid;
+  place-items: center;
+  color: var(--joker-red);
   filter: drop-shadow(0 8px 22px rgba(255, 45, 111, 0.45));
 }
+.joker-card .center-icon svg { width: 74px; height: 74px; }
 
 .joker-card .stat {
   text-align: center;
@@ -449,7 +453,13 @@ a { color: inherit; }
   padding: 60px 20px;
   color: var(--text-dim);
 }
-.empty-state .glyph { font-size: 44px; margin-bottom: 12px; }
+.empty-state .glyph {
+  display: flex;
+  justify-content: center;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+.empty-state .glyph svg { width: 40px; height: 40px; }
 
 /* ---------- Admin lock screen ---------- */
 .lock-shell {
@@ -463,10 +473,11 @@ a { color: inherit; }
   background: linear-gradient(145deg, var(--joker-red), var(--violet));
   display: grid;
   place-items: center;
-  font-size: 30px;
+  color: white;
   margin: 0 auto 20px;
   box-shadow: var(--shadow-glow);
 }
+.lock-shell .joker-mark-lg svg { width: 28px; height: 28px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -506,4 +517,72 @@ footer .credit span { color: var(--gold); }
   background: rgba(139, 61, 255, 0.15);
   border: 1px solid rgba(139, 61, 255, 0.4);
   color: #cbb3ff;
+}
+
+/* ---------- Icons (SVG, replaces emoji) ---------- */
+.icon-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.15em;
+}
+.icon-inline svg { width: 1em; height: 1em; display: block; }
+
+.icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Phone field: country select with chevron + dial-code prefix */
+.country-select-wrap {
+  position: relative;
+}
+.country-select-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 34px;
+  width: 100%;
+}
+.country-select-wrap .chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-dim);
+  font-size: 16px;
+}
+
+.phone-input-wrap {
+  position: relative;
+}
+.phone-input-wrap .dial-prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14px;
+  pointer-events: none;
+}
+.phone-input-wrap input {
+  padding-left: 56px;
+}
+
+/* Capacity progress bar (admin) */
+.capacity-bar {
+  height: 8px;
+  border-radius: 100px;
+  background: var(--ink-2);
+  overflow: hidden;
+  margin-top: 10px;
+}
+.capacity-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--joker-red), var(--gold));
+  transition: width .4s ease;
 }
