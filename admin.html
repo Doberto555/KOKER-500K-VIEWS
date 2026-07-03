@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — JOKER 500K VIEWS</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="joker-mark">🃏</span>
+    JOKER <span class="tag">500K</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Enskri</a>
+    <a href="list.html">Lis Manm</a>
+    <a href="admin.html" class="active">Admin</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ===== LOCK SCREEN ===== -->
+  <div id="lockScreen" class="lock-shell">
+    <div class="panel" style="text-align:center;">
+      <div class="joker-mark-lg">🔐</div>
+      <h2 style="margin-bottom:6px;">Zòn Admin</h2>
+      <div class="sub" style="color:var(--text-dim);margin-bottom:24px;">Konekte pou wè lis konplè a ak nimewo yo.</div>
+
+      <div id="loginAlert" class="alert alert-error"></div>
+
+      <form id="loginForm" style="text-align:left;">
+        <div class="field">
+          <label for="adminEmail">Imèl Admin</label>
+          <input type="email" id="adminEmail" autocomplete="username" />
+        </div>
+        <div class="field">
+          <label for="adminPass">Modpas</label>
+          <input type="password" id="adminPass" autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Konekte</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD (kache jiskaske moun konekte) ===== -->
+  <div id="dashboard" style="display:none;">
+
+    <div class="section-head">
+      <div>
+        <h2>Dashboard Admin</h2>
+        <div class="sub">Lis konplè moun ki enskri yo, ak nimewo yo.</div>
+      </div>
+      <button class="btn btn-outline" id="logoutBtn">Dekonekte</button>
+    </div>
+
+    <div class="list-stats">
+      <div class="stat-chip">
+        <div class="n" id="adminTotal">—</div>
+        <div class="l">Total Enskri</div>
+      </div>
+      <div class="stat-chip">
+        <div class="n" id="adminToday">—</div>
+        <div class="l">Jodi a</div>
+      </div>
+      <div class="stat-chip">
+        <div class="n" id="adminCapacity">30,000</div>
+        <div class="l">Maks pou 1 fichye VCF</div>
+      </div>
+    </div>
+
+    <div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+      <div>
+        <strong>Telechaje kontak yo (.vcf)</strong>
+        <div class="sub" style="margin-top:4px;">Fichye a ap gen non ak nimewo — jiska 30,000 kontak nan 1 fichye.</div>
+      </div>
+      <button class="btn btn-gold" id="downloadVcfBtn">⬇️ Telechaje VCF</button>
+    </div>
+
+    <div class="mt-24" id="adminRosterWrap"></div>
+
+  </div>
+
+</div>
+
+<footer>
+  JOKER 500K VIEWS — Kominote pou boste Statut WhatsApp
+  <div class="credit">Fèt pa <span>Doberto Mr Lit</span> an kolaborasyon avèk <span>Joker</span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="countries.js"></script>
+<script src="supabase-client.js"></script>
+<script>
+  const lockScreen = document.getElementById('lockScreen');
+  const dashboard = document.getElementById('dashboard');
+  const loginForm = document.getElementById('loginForm');
+  const loginAlert = document.getElementById('loginAlert');
+  const loginBtn = document.getElementById('loginBtn');
+  let allRows = [];
+
+  function initials(name) {
+    return name.trim().split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+  }
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+  }
+
+  async function checkSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      showDashboard();
+    } else {
+      lockScreen.style.display = 'block';
+      dashboard.style.display = 'none';
+    }
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginAlert.className = 'alert alert-error';
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span class="spinner"></span> Ap tcheke...';
+
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPass').value;
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Konekte';
+
+    if (error) {
+      loginAlert.classList.add('show');
+      loginAlert.textContent = 'Imèl oswa modpas pa kòrèk.';
+      return;
+    }
+
+    showDashboard();
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    location.reload();
+  });
+
+  async function showDashboard() {
+    lockScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    await loadFullRoster();
+  }
+
+  async function loadFullRoster() {
+    const wrap = document.getElementById('adminRosterWrap');
+    wrap.innerHTML = `<div class="empty-state"><span class="spinner"></span> Ap chaje...</div>`;
+
+    // Kont admin (authenticated) sèl ki gen dwa wè kolòn "phone" la, gras a RLS.
+    const { data, error } = await supabaseClient
+      .from('registrations')
+      .select('name, phone, email, created_at')
+      .order('created_at', { ascending: false })
+      .limit(MAX_CONTACTS);
+
+    if (error) {
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">⚠️</div>Nou pa t kapab chaje lis la.</div>`;
+      console.error(error);
+      return;
+    }
+
+    allRows = data;
+    document.getElementById('adminTotal').textContent = data.length.toLocaleString('fr-FR');
+    const today = new Date().toDateString();
+    const todayN = data.filter(r => new Date(r.created_at).toDateString() === today).length;
+    document.getElementById('adminToday').textContent = todayN.toLocaleString('fr-FR');
+
+    if (data.length === 0) {
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">🃏</div>Pèsonn poko enskri.</div>`;
+      return;
+    }
+
+    const rows = data.map((r, i) => `
+      <div class="roster-row">
+        <span class="idx">${i + 1}</span>
+        <span class="avatar">${initials(r.name)}</span>
+        <span class="name">${r.name}</span>
+        <span class="phone-full">${r.phone}</span>
+        <span class="date">${formatDate(r.created_at)}</span>
+      </div>
+    `).join('');
+
+    wrap.innerHTML = `<div class="roster">${rows}</div>`;
+  }
+
+  document.getElementById('downloadVcfBtn').addEventListener('click', () => {
+    if (!allRows.length) return;
+    const contacts = allRows.map(r => ({ name: r.name, phone: r.phone }));
+    downloadVCF(contacts, `joker500k-${new Date().toISOString().slice(0,10)}.vcf`);
+  });
+
+  checkSession();
+</script>
+
+</body>
+</html>
