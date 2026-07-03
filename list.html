@@ -30,6 +30,16 @@
     <span class="badge">🔒 Nimewo yo kache</span>
   </div>
 
+  <div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px;">
+    <div>
+      <strong>Ede n rive 500K views pi vit 🚀</strong>
+      <div class="sub" style="margin-top:4px;">Envite zanmi ou yo pou yo enskri tou.</div>
+    </div>
+    <a href="#" id="inviteShareBtn" target="_blank" class="btn btn-primary" style="background:linear-gradient(100deg,#25D366,#128C7E);width:auto;box-shadow:0 10px 30px rgba(37,211,102,0.35);">
+      💬 Envite sou WhatsApp
+    </a>
+  </div>
+
   <div class="list-stats">
     <div class="stat-chip">
       <div class="n" id="totalCount">—</div>
@@ -101,6 +111,9 @@
 
     wrap.innerHTML = `<div class="roster">${rows}</div>`;
   }
+
+  const inviteMsg = `🃏 Vin jwenn kominote Joker 500K Views pou boste Statut WhatsApp ou, se gratis: ${window.location.origin}${window.location.pathname.replace('list.html', '')}index.html`;
+  document.getElementById('inviteShareBtn').href = `https://wa.me/?text=${encodeURIComponent(inviteMsg)}`;
 
   loadRoster();
 </script>
