@@ -10,7 +10,7 @@
 
 <div class="topbar">
   <a href="index.html" class="brand">
-    <span class="joker-mark">🃏</span>
+    <span class="joker-mark" id="brandMark"></span>
     JOKER <span class="tag">500K</span>
   </a>
   <div class="nav-links">
@@ -27,16 +27,16 @@
       <h2>Lis Manm ki Enskri</h2>
       <div class="sub">Non yo piblik. Nimewo yo <strong>pa piblik</strong> — yo rete kache pou pwoteje moun ki enskri yo.</div>
     </div>
-    <span class="badge">🔒 Nimewo yo kache</span>
+    <span class="badge"><span class="icon-inline" id="badgeLockIcon"></span> Nimewo yo kache</span>
   </div>
 
   <div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px;">
     <div>
-      <strong>Ede n rive 500K views pi vit 🚀</strong>
+      <strong style="display:inline-flex;align-items:center;gap:8px;"><span class="icon-inline" id="rocketIcon"></span> Ede n rive 500K views pi vit</strong>
       <div class="sub" style="margin-top:4px;">Envite zanmi ou yo pou yo enskri tou.</div>
     </div>
     <a href="#" id="inviteShareBtn" target="_blank" class="btn btn-primary" style="background:linear-gradient(100deg,#25D366,#128C7E);width:auto;box-shadow:0 10px 30px rgba(37,211,102,0.35);">
-      💬 Envite sou WhatsApp
+      <span class="icon-inline" id="chatIcon"></span> Envite sou WhatsApp
     </a>
   </div>
 
@@ -62,8 +62,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="countries.js"></script>
+<script src="icons.js"></script>
 <script src="supabase-client.js"></script>
 <script>
+  document.getElementById('brandMark').innerHTML = ICONS.joker;
+  document.getElementById('badgeLockIcon').innerHTML = ICONS.lock;
+  document.getElementById('rocketIcon').innerHTML = ICONS.rocket;
+  document.getElementById('chatIcon').innerHTML = ICONS.chat;
+
   function initials(name) {
     return name.trim().split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
   }
@@ -84,7 +90,7 @@
       .limit(2000);
 
     if (error) {
-      wrap.innerHTML = `<div class="empty-state"><div class="glyph">⚠️</div>Nou pa t kapab chaje lis la. Eseye rafrechi paj la.</div>`;
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">${ICONS.warning}</div>Nou pa t kapab chaje lis la. Eseye rafrechi paj la.</div>`;
       console.error(error);
       return;
     }
@@ -95,7 +101,7 @@
     document.getElementById('todayCount').textContent = todayN.toLocaleString('fr-FR');
 
     if (data.length === 0) {
-      wrap.innerHTML = `<div class="empty-state"><div class="glyph">🃏</div>Pèsonn poko enskri. Se ou ki premye a?</div>`;
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">${ICONS.joker}</div>Pèsonn poko enskri. Se ou ki premye a?</div>`;
       return;
     }
 
@@ -112,7 +118,7 @@
     wrap.innerHTML = `<div class="roster">${rows}</div>`;
   }
 
-  const inviteMsg = `🃏 Vin jwenn kominote Joker 500K Views pou boste Statut WhatsApp ou, se gratis: ${window.location.origin}${window.location.pathname.replace('list.html', '')}index.html`;
+  const inviteMsg = `Vin jwenn kominote Joker 500K Views pou boste Statut WhatsApp ou, se gratis: ${window.location.origin}${window.location.pathname.replace('list.html', '')}index.html`;
   document.getElementById('inviteShareBtn').href = `https://wa.me/?text=${encodeURIComponent(inviteMsg)}`;
 
   loadRoster();
