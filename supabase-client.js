@@ -1,7 +1,7 @@
 // supabase-client.js
 // ⚠️ Ranpli 2 valè sa yo ak enfòmasyon pwojè Supabase pa w (Settings > API).
-const SUPABASE_URL = "https://TON-PWOJE.supabase.co";
-const SUPABASE_ANON_KEY = "TON-ANON-KEY-LA";
+const SUPABASE_URL = "https://mwjhzhdhybznnitwloed.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13amh6aGRoeWJ6bm5pdHdsb2VkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTcwNjIsImV4cCI6MjA5ODY5MzA2Mn0.OxliuenRI2cgsigcB7U-SLyhyPAv_nZqeFakViQoo8Y";
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
