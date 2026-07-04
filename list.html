@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lis Manm — JOKER 500K VIEWS</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="joker-mark" id="brandMark"></span>
+    JOKER <span class="tag">500K</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Enskri</a>
+    <a href="list.html" class="active">Lis Manm</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="section-head">
+    <div>
+      <h2>Lis Manm ki Enskri</h2>
+      <div class="sub">Non yo piblik. Nimewo yo <strong>pa piblik</strong> — yo rete kache pou pwoteje moun ki enskri yo.</div>
+    </div>
+    <span class="badge"><span class="icon-inline" id="badgeLockIcon"></span> Nimewo yo kache</span>
+  </div>
+
+  <div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px;">
+    <div>
+      <strong style="display:inline-flex;align-items:center;gap:8px;"><span class="icon-inline" id="rocketIcon"></span> Ede n rive 500K views pi vit</strong>
+      <div class="sub" style="margin-top:4px;">Envite zanmi ou yo pou yo enskri tou.</div>
+    </div>
+    <a href="#" id="inviteShareBtn" target="_blank" class="btn btn-primary" style="background:linear-gradient(100deg,#25D366,#128C7E);width:auto;box-shadow:0 10px 30px rgba(37,211,102,0.35);">
+      <span class="icon-inline" id="chatIcon"></span> Envite sou WhatsApp
+    </a>
+  </div>
+
+  <div class="list-stats">
+    <div class="stat-chip">
+      <div class="n" id="totalCount">—</div>
+      <div class="l">Moun Enskri</div>
+    </div>
+    <div class="stat-chip">
+      <div class="n" id="todayCount">—</div>
+      <div class="l">Jodi a</div>
+    </div>
+  </div>
+
+  <div id="rosterWrap"></div>
+
+</div>
+
+<footer>
+  JOKER 500K VIEWS — Kominote pou boste Statut WhatsApp
+  <div class="credit">Fèt pa <span>Doberto Mr Lit</span> an kolaborasyon avèk <span>Joker</span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="countries.js"></script>
+<script src="icons.js"></script>
+<script src="supabase-client.js"></script>
+<script>
+  document.getElementById('brandMark').innerHTML = ICONS.joker;
+  document.getElementById('badgeLockIcon').innerHTML = ICONS.lock;
+  document.getElementById('rocketIcon').innerHTML = ICONS.rocket;
+  document.getElementById('chatIcon').innerHTML = ICONS.chat;
+
+  function initials(name) {
+    return name.trim().split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+  }
+
+  async function loadRoster() {
+    const wrap = document.getElementById('rosterWrap');
+
+    // Sèlman non ak dat — nimewo pa janm mande isit la.
+    const { data, error } = await supabaseClient
+      .from('public_registrations')
+      .select('name, created_at')
+      .order('created_at', { ascending: false })
+      .limit(2000);
+
+    if (error) {
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">${ICONS.warning}</div>Nou pa t kapab chaje lis la. Eseye rafrechi paj la.</div>`;
+      console.error(error);
+      return;
+    }
+
+    document.getElementById('totalCount').textContent = data.length.toLocaleString('fr-FR');
+    const today = new Date().toDateString();
+    const todayN = data.filter(r => new Date(r.created_at).toDateString() === today).length;
+    document.getElementById('todayCount').textContent = todayN.toLocaleString('fr-FR');
+
+    if (data.length === 0) {
+      wrap.innerHTML = `<div class="empty-state"><div class="glyph">${ICONS.joker}</div>Pèsonn poko enskri. Se ou ki premye a?</div>`;
+      return;
+    }
+
+    const rows = data.map((r, i) => `
+      <div class="roster-row">
+        <span class="idx">${i + 1}</span>
+        <span class="avatar">${initials(r.name)}</span>
+        <span class="name">${withPrefix(r.name)}</span>
+        <span class="phone-masked">•• •• •• ••</span>
+        <span class="date">${formatDate(r.created_at)}</span>
+      </div>
+    `).join('');
+
+    wrap.innerHTML = `<div class="roster">${rows}</div>`;
+  }
+
+  const inviteMsg = `Vin jwenn kominote Joker 500K Views pou boste Statut WhatsApp ou, se gratis: ${window.location.origin}${window.location.pathname.replace('list.html', '')}index.html`;
+  document.getElementById('inviteShareBtn').href = `https://wa.me/?text=${encodeURIComponent(inviteMsg)}`;
+
+  loadRoster();
+</script>
+
+</body>
+</html>

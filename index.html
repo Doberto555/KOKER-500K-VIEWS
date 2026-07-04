@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOKER 500K VIEWS — Enskri pou plis vye sou Statut ou</title>
+<meta name="description" content="Enskri non ou ak nimewo ou pou fè kominote a wè epi reagi sou Statut WhatsApp ou.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="joker-mark" id="brandMark"></span>
+    JOKER <span class="tag">500K</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Enskri</a>
+    <a href="list.html">Lis Manm</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow" id="eyebrowTag"></div>
+      <h1>Mete Statut ou<br><span class="accent">devan tout moun.</span></h1>
+      <p class="lede">Enskri nimewo WhatsApp ou nan Joker 500K Views epi kominote a ap ka wè, gade ak reagi sou Statut ou chak jou. Se gratis, l ap pran 30 segond.</p>
+
+      <div class="list-stats" style="margin-top:22px;">
+        <div class="stat-chip">
+          <div class="n" id="homeTotalCount">—</div>
+          <div class="l">Moun Konekte</div>
+        </div>
+        <div class="stat-chip">
+          <div class="n" id="homeTodayCount">—</div>
+          <div class="l">Jodi a</div>
+        </div>
+      </div>
+    </div>
+    <div class="joker-card-wrap">
+      <div class="joker-card">
+        <div class="corner">J♠</div>
+        <div class="center-icon" id="cardIcon"></div>
+        <div class="stat">
+          <div class="num">500K</div>
+          <div class="lbl">Views Target</div>
+        </div>
+        <div class="corner bottom">J♠</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="max-width:560px;margin:0 auto;">
+    <div class="section-head" style="margin-bottom:22px;">
+      <div>
+        <h2>Enskri kounye a</h2>
+        <div class="sub">Nimewo ou ap rete prive — se sèl admin ki ka wè li.</div>
+      </div>
+    </div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <form id="regForm" novalidate>
+      <div class="field" id="nameField">
+        <label for="name">Non konplè</label>
+        <input type="text" id="name" placeholder="Egzanp: Jean Baptiste" autocomplete="name" />
+        <div class="error">Tanpri antre non ou.</div>
+      </div>
+
+      <div class="field" id="phoneField">
+        <label for="phone">Nimewo WhatsApp</label>
+        <div class="phone-row">
+          <div class="country-select-wrap">
+            <select id="countryCode" aria-label="Kod peyi"></select>
+            <span class="chevron" id="chevronIcon"></span>
+          </div>
+          <div class="phone-input-wrap">
+            <span class="dial-prefix" id="dialPrefix">+509</span>
+            <input type="tel" id="phone" placeholder="34567890" inputmode="numeric" autocomplete="tel-national" />
+          </div>
+        </div>
+        <div class="hint" id="phoneHint"></div>
+        <div class="error">Nimewo a pa gen bon kantite chif pou peyi ou chwazi a.</div>
+      </div>
+
+      <div class="field" id="emailField">
+        <label for="email">Imèl</label>
+        <input type="email" id="email" placeholder="egzanp@gmail.com" autocomplete="email" />
+        <div class="error">Tanpri antre yon imèl ki valab.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submitBtn">Enskri m kounye a</button>
+    </form>
+  </div>
+
+  <!-- ===== KAT "BYENVENI" — parèt apre yon enskripsyon reyisi ===== -->
+  <div class="panel mt-24" id="welcomeCard" style="max-width:560px;margin:20px auto 0;display:none;text-align:center;">
+    <div class="icon-box" id="welcomeIcon" style="font-size:40px;color:var(--gold);margin-bottom:6px;justify-content:center;"></div>
+    <h2 id="welcomeTitle" style="font-size:22px;margin-bottom:6px;">Byenveni!</h2>
+    <p class="sub" style="margin-bottom:22px;">Ou enskri avèk siksè. Nou voye yon imèl konfimasyon ba ou. Kounye a, antre nan gwoup WhatsApp nou an pou w pa manke anyen, epi ede n rive 500K views pi vit — envite zanmi ou yo!</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://chat.whatsapp.com/FN4qj0YHdjU7LOy2gCqiIg?s=cl&p=a&ilr=2" id="joinGroupBtn" target="_blank" rel="noopener" class="btn btn-gold" style="width:auto;">
+        <span class="icon-inline" id="chatIcon2"></span> Antre nan Gwoup WhatsApp
+      </a>
+      <a href="#" id="whatsappShareBtn" target="_blank" class="btn btn-primary" style="background:linear-gradient(100deg,#25D366,#128C7E);width:auto;box-shadow:0 10px 30px rgba(37,211,102,0.35);">
+        <span class="icon-inline" id="chatIcon1"></span> Pataje sou WhatsApp
+      </a>
+      <button class="btn btn-outline" id="viewListBtn" style="width:auto;">Gade Lis Manm yo</button>
+    </div>
+  </div>
+
+  <div class="panel mt-24" style="max-width:560px;margin:20px auto 0;">
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <span class="icon-box" id="lockIcon" style="font-size:22px;color:var(--gold);"></span>
+      <div>
+        <strong>Konfidansyalite:</strong>
+        <div class="sub" style="margin-top:4px;">Non moun ki enskri yo piblik nan paj "Lis Manm", men nimewo yo rete kache. Se sèl kont admin ki ka wè nimewo yo ak telechaje yo.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  JOKER 500K VIEWS — Kominote pou boste Statut WhatsApp
+  <div class="credit">Fèt pa <span>Doberto Mr Lit</span> an kolaborasyon avèk <span>Joker</span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="countries.js"></script>
+<script src="icons.js"></script>
+<script src="supabase-client.js"></script>
+<script>
+  // Enjekte ikòn statik yo
+  document.getElementById('brandMark').innerHTML = ICONS.joker;
+  document.getElementById('cardIcon').innerHTML = ICONS.joker;
+  document.getElementById('chevronIcon').innerHTML = ICONS.chevron;
+  document.getElementById('chatIcon1').innerHTML = ICONS.chat;
+  document.getElementById('chatIcon2').innerHTML = ICONS.chat;
+  document.getElementById('lockIcon').innerHTML = ICONS.lock;
+  document.getElementById('eyebrowTag').innerHTML = `<span class="icon-inline">${ICONS.flame}</span> 500,000 VIEWS AP TANN OU`;
+
+  const countrySelect = document.getElementById('countryCode');
+  const phoneHint = document.getElementById('phoneHint');
+  const dialPrefix = document.getElementById('dialPrefix');
+
+  // Ranpli select la, Ayiti an premye pa defo — san emoji, sèlman kod ISO + non
+  COUNTRIES.forEach((c) => {
+    const opt = document.createElement('option');
+    opt.value = c.code;
+    opt.textContent = `${c.iso} +${c.code} · ${c.name}`;
+    countrySelect.appendChild(opt);
+  });
+  countrySelect.value = "509";
+
+  function updateHint() {
+    const c = findCountryByCode(countrySelect.value);
+    if (!c) return;
+    const [min, max] = c.len;
+    const lenTxt = min === max ? `${min} chif` : `ant ${min} ak ${max} chif`;
+    phoneHint.textContent = `${c.name}: nimewo a dwe gen ${lenTxt}, san kod peyi a.`;
+    dialPrefix.textContent = `+${c.code}`;
+  }
+  countrySelect.addEventListener('change', updateHint);
+  updateHint();
+
+  // Pano "Moun Konekte" — kantite moun ki enskri, an tan reyèl
+  async function loadHomeStats() {
+    const { data, error } = await supabaseClient
+      .from('public_registrations')
+      .select('created_at');
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    document.getElementById('homeTotalCount').textContent = data.length.toLocaleString('fr-FR');
+    const today = new Date().toDateString();
+    const todayN = data.filter(r => new Date(r.created_at).toDateString() === today).length;
+    document.getElementById('homeTodayCount').textContent = todayN.toLocaleString('fr-FR');
+  }
+  loadHomeStats();
+
+  const form = document.getElementById('regForm');
+  const alertBox = document.getElementById('alertBox');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showAlert(type, msg, icon) {
+    alertBox.className = `alert alert-${type} show`;
+    alertBox.innerHTML = icon ? `<span class="icon-inline">${ICONS[icon]}</span> ${msg}` : msg;
+  }
+
+  function setFieldError(id, hasError) {
+    document.getElementById(id).classList.toggle('has-error', hasError);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertBox.className = 'alert';
+
+    const name = document.getElementById('name').value.trim();
+    const phoneRaw = document.getElementById('phone').value.trim().replace(/\D/g, '');
+    const email = document.getElementById('email').value.trim();
+    const country = findCountryByCode(countrySelect.value);
+
+    let hasError = false;
+
+    setFieldError('nameField', name.length < 2);
+    if (name.length < 2) hasError = true;
+
+    const phoneOk = isValidLocalNumber(country, phoneRaw);
+    setFieldError('phoneField', !phoneOk);
+    if (!phoneOk) hasError = true;
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setFieldError('emailField', !emailOk);
+    if (!emailOk) hasError = true;
+
+    if (hasError) {
+      showAlert('error', 'Tanpri korije chan ki make an wouj yo.', 'warning');
+      return;
+    }
+
+    const fullPhone = `+${country.code}${phoneRaw}`;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span> Ap voye...';
+
+    const { error } = await supabaseClient.from('registrations').insert({
+      name,
+      phone: fullPhone,
+      email,
+      country_code: country.code,
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enskri m kounye a';
+
+    if (error) {
+      if (error.code === '23505') {
+        showAlert('error', 'Nimewo sa a deja enskri.', 'warning');
+      } else {
+        showAlert('error', 'Yon pwoblèm rive. Eseye ankò.', 'warning');
+      }
+      console.error(error);
+      return;
+    }
+
+    // Mesaj byenveni + bouton pataje WhatsApp
+    document.getElementById('welcomeIcon').innerHTML = ICONS.check;
+    document.getElementById('welcomeTitle').textContent = `Byenveni, ${name.split(' ')[0]}!`;
+    const shareMsg = `Mwen fèk enskri sou JOKER 500K VIEWS pou boste Statut WhatsApp mwen! Vin enskri ou tou, se gratis: ${window.location.origin}${window.location.pathname.replace('index.html', '')}index.html`;
+    document.getElementById('whatsappShareBtn').href = `https://wa.me/?text=${encodeURIComponent(shareMsg)}`;
+    document.getElementById('welcomeCard').style.display = 'block';
+    document.getElementById('welcomeCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    form.reset();
+    countrySelect.value = "509";
+    updateHint();
+    showAlert('success', 'Ou enskri! Verifye imèl ou pou konfimasyon an.', 'check');
+    loadHomeStats();
+  });
+
+  document.getElementById('viewListBtn').addEventListener('click', () => {
+    window.location.href = 'list.html';
+  });
+</script>
+
+</body>
+</html>
